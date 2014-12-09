@@ -2,6 +2,7 @@ package com.mymodule.app;
 
 /**
  * Created by jassayah on 12/8/14.
+ * The data model of a Item
  */
 public class Item {
     private String attrib;

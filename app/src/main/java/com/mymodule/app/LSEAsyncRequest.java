@@ -18,6 +18,7 @@ import java.util.Map;
 
 /**
  * Created by jassayah on 12/8/14.
+ * LSEAsyncRequest is a Volley adapter for JSON requests that will be parsed into Java objects by Gson.
  */
 public class LSEAsyncRequest<T> extends Request<T> {
 
@@ -25,20 +26,21 @@ public class LSEAsyncRequest<T> extends Request<T> {
     private final Type type;
     private final Map<String, String> headers;
     private final Listener<T> listener;
+    private final ErrorListener errorListener;
 
     /**
      * Make a GET request and return a parsed object from JSON.
      *
      * @param url     URL of the request to make
-     * @param clazz   Relevant class object, for Gson's reflection
+     * @param type    Relevant class object, for Gson's reflection
      * @param headers Map of request headers
      */
-    public LSEAsyncRequest(String url, Type type, Map<String, String> headers,
-                           Listener<T> listener, ErrorListener errorListener) {
+    public LSEAsyncRequest(String url, Type type, Map<String, String> headers, Listener<T> listener, ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
         this.type = type;
         this.headers = headers;
         this.listener = listener;
+        this.errorListener = errorListener;
     }
 
     @Override
@@ -55,7 +57,7 @@ public class LSEAsyncRequest<T> extends Request<T> {
     protected Response<T> parseNetworkResponse(NetworkResponse response) {
         try {
             String json = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
-            T t = gson.fromJson(json,type);
+            T t = gson.fromJson(json, type);
             return Response.success(t, HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
             return Response.error(new ParseError(e));

@@ -5,12 +5,9 @@ import android.graphics.Bitmap;
 import android.util.LruCache;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.HttpClientStack;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
-
-import org.apache.http.impl.client.DefaultHttpClient;
 
 /**
  * Created by jassayah on 12/8/14.
@@ -27,7 +24,7 @@ public class LSEAsyncImageRequest {
     private RequestQueue requestQueue;
 
     private LSEAsyncImageRequest(Context context) {
-        requestQueue = Volley.newRequestQueue(context, new HttpClientStack(new DefaultHttpClient()));
+        requestQueue = Volley.newRequestQueue(context);
     }
 
     /**
@@ -48,18 +45,6 @@ public class LSEAsyncImageRequest {
     }
 
     /**
-     * Fetch the image at the URL. While the image is loading
-     * any defaultImage loaded into the NetworkImage will be displayed.
-     *
-     * @param networkImageView a NetworkImageView
-     * @param url              a full uri where the image (jpg) resides.
-     */
-    public void setImage(NetworkImageView networkImageView, String url) {
-        networkImageView.setImageUrl(url, new ImageLoader(requestQueue, new LSEVolleyLruCache()));
-    }
-
-
-    /**
      * This Utility method asynchronously requests the image
      * at the provided imageURL. While that is loading, the
      * default image at R.drawable.image_placeholder will be displayed.
@@ -71,11 +56,10 @@ public class LSEAsyncImageRequest {
      * @param defaultDrawableResource R.drawable.xxxxx to use as a default while the image loads
      * @return The NetworkImageView, an extension of ImageView created by this method
      */
-    public static  NetworkImageView fetchImageAsync(Context context, String imageUrl, int defaultDrawableResource) {
+    public static NetworkImageView fetchImageAsync(Context context, String imageUrl, int defaultDrawableResource) {
         NetworkImageView networkImageView = new NetworkImageView((context));
         return fetchImageAsync(context, imageUrl, networkImageView, defaultDrawableResource);
     }
-
 
     /**
      * This Utility method asynchronously requests the image
@@ -97,12 +81,22 @@ public class LSEAsyncImageRequest {
         return networkImageView;
     }
 
+    /**
+     * Fetch the image at the URL. While the image is loading
+     * any defaultImage loaded into the NetworkImage will be displayed.
+     *
+     * @param networkImageView a NetworkImageView
+     * @param url              a full uri where the image (jpg) resides.
+     */
+    public void setImage(final NetworkImageView networkImageView, String url) {
+        networkImageView.setImageUrl(url, new ImageLoader(requestQueue, new LSEVolleyLruCache()));
+    }
 
     public class LSEVolleyLruCache implements ImageLoader.ImageCache {
 
-        private LruCache<String, Bitmap> memoryCache;
         final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
         final int cacheSize = maxMemory / 8;
+        private LruCache<String, Bitmap> memoryCache;
 
         public LSEVolleyLruCache() {
             memoryCache = new LruCache<String, Bitmap>(cacheSize);

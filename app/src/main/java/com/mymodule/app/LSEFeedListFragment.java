@@ -8,9 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +16,6 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.reflect.TypeToken;
@@ -43,7 +40,7 @@ public class LSEFeedListFragment extends ListFragment {
         View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
 
         loadingOverlay = rootView.findViewById(R.id.loading_overlay);
-        assert loadingOverlay!=null;
+        assert loadingOverlay != null;
 
         showLoadingOverlay(true);
         adapter = new ItemAdapter(itemArrayList);
@@ -52,10 +49,15 @@ public class LSEFeedListFragment extends ListFragment {
         return rootView;
     }
 
+    /*
+    * This method will request the data from the feed
+    *
+    */
     private void requestData() {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        Type type = new TypeToken<ArrayList<Item>>(){}.getType();
-        queue.add(new LSEAsyncRequest(url, type,null,createMyReqSuccessListener(),createMyReqErrorListener()));
+        Type type = new TypeToken<ArrayList<Item>>() {
+        }.getType();
+        queue.add(new LSEAsyncRequest(url, type, null, successListener(), errorListener()));
         queue.start();
     }
 
@@ -76,7 +78,7 @@ public class LSEFeedListFragment extends ListFragment {
         }
     }
 
-    private Response.Listener<ArrayList<Item>> createMyReqSuccessListener() {
+    private Response.Listener<ArrayList<Item>> successListener() {
         return new Response.Listener<ArrayList<Item>>() {
             @Override
             public void onResponse(ArrayList<Item> response) {
@@ -86,7 +88,7 @@ public class LSEFeedListFragment extends ListFragment {
         };
     }
 
-    private Response.ErrorListener createMyReqErrorListener() {
+    private Response.ErrorListener errorListener() {
         return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -100,7 +102,7 @@ public class LSEFeedListFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         Item item = adapter.getItem(position);
-        if (item!=null) {
+        if (item != null) {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getHref()));
             startActivity(browserIntent);
         }
