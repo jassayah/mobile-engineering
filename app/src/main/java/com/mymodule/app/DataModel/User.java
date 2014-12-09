@@ -1,4 +1,6 @@
-package com.mymodule.app;
+package com.mymodule.app.DataModel;
+
+import com.mymodule.app.DataModel.Avatar;
 
 /**
  * Created by jassayah on 12/8/14.

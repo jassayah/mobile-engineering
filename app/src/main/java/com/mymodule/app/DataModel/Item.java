@@ -1,4 +1,4 @@
-package com.mymodule.app;
+package com.mymodule.app.DataModel;
 
 /**
  * Created by jassayah on 12/8/14.

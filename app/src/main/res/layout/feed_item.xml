@@ -4,39 +4,39 @@
     android:layout_height="match_parent"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="8dp">
+    style="@style/feed_item__row_style">
 
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/imageView"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
         android:layout_weight="0"
         android:scaleType="fitXY"
-        android:layout_margin="8dp" />
+        android:contentDescription="@string/imageView_desc"
+        style="@style/product_imageView_style"/>
 
     <LinearLayout
         android:layout_width="0px"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_margin="10dp">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textViewDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"/>
+            android:textStyle="bold"
+            android:contentDescription="@string/textView_description_desc"
+            android:layout_marginBottom="1dp"/>
 
         <TextView
             android:id="@+id/textViewLink"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             android:layout_width="wrap_content"
             android:textColor="@color/link"
+            android:contentDescription="@string/textView_href_desc"
             android:layout_height="wrap_content" />
 
         <LinearLayout
-            android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -44,17 +44,17 @@
 
             <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/imageViewAvatar"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
                 android:layout_weight="0"
                 android:scaleType="centerCrop"
-                android:layout_marginRight="16dp"/>
+                android:contentDescription="@string/imageView_avatar_desc"
+                style="@style/avatar_imageView_style"/>
 
             <TextView
                 android:id="@+id/textViewUserName"
                 android:layout_width="0px"
                 android:layout_marginLeft="10dp"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/textView_username_desc"
                 android:textColor="@color/username_color"
                 android:layout_weight="1" />
         </LinearLayout>

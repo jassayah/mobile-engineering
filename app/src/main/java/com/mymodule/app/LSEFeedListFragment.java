@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.reflect.TypeToken;
+import com.mymodule.app.DataModel.Item;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
