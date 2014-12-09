@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/imageView"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_weight="0"
+        android:scaleType="fitXY"
+        android:layout_margin="8dp" />
+
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/textViewDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:id="@+id/textViewLink"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="wrap_content"
+            android:textColor="@color/link"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_marginTop="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/imageViewAvatar"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_weight="0"
+                android:scaleType="centerCrop"
+                android:layout_marginRight="16dp"/>
+
+            <TextView
+                android:id="@+id/textViewUserName"
+                android:layout_width="0px"
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/username_color"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
