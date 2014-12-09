@@ -17,6 +17,8 @@ public class LSEFeedActivity extends Activity {
                     .add(R.id.container, new LSEFeedListFragment())
                     .commit();
         }
+
+        setTitle(getResources().getString(R.string.title));
     }
 
 
